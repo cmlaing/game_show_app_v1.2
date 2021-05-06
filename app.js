@@ -9,6 +9,7 @@ const qwerty =  document.querySelector("#qwerty");
 const phrase = document.querySelector("#phrase");
 const btn_reset = document.querySelector(".btn__reset");
 let missed = 0;
+let phraseUl = document.querySelector("#phrase ul");
 
 
 // Phrase list, one per game to guess
@@ -34,14 +35,45 @@ btn_reset.addEventListener('click', () => {
 
 
 
-function getRandomPhraseAsArray(){
+function getRandomPhraseAsArray(arr){
     // choose 1 random phrase to be the phrase for the game
 
     // store random number based on the length of the array
-    let randomNumber = Math.floor(Math.random() * phraseList.length);
+    let randomNumber = Math.floor(Math.random() * arr.length);
     
     //Use the variable to select an index inside of the array.
     //Function returns a randomly selected phrase from phraseList
-    return phraseList[randomNumber];
+    return arr[randomNumber];
 
 };
+
+
+
+/*
+Use the randomly generated phrase from getRandomPhraseAsArray() and
+display it on the screen using addPhraseToDisplay()
+*/
+let chosenPhrase = getRandomPhraseAsArray(phraseList);
+function addPhraseToDisplay(chosenPhrase) {
+    //attach each char in phrase as a list item
+    for (i = 0; i < chosenPhrase.length; i++){
+        let li = document.createElement("li");
+        phraseChar = chosenPhrase[i];
+        li.textContent = phraseChar.toUpperCase();
+        
+        // actually displays on screen
+        if (li == phraseChar ) {
+            li.classList.add("letter");
+            phraseUl.appendChild(li);
+
+
+        } else if (li !== phraseChar){
+            li.classList.add("space");
+            phraseUl.appendChild(li);
+
+        }
+    }
+
+};
+
+addPhraseToDisplay(chosenPhrase);
