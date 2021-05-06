@@ -1,3 +1,8 @@
+/*
+app.js is for Treehouse Unit 6 Project for the "Wheel of Success" game.
+May 6/21 start
+*/
+
 
 const overlay = document.querySelector("#overlay");
 const qwerty =  document.querySelector("#qwerty");
@@ -33,9 +38,10 @@ function getRandomPhraseAsArray(){
     // choose 1 random phrase to be the phrase for the game
 
     // store random number based on the length of the array
-    let randomNumber = phraseList.length; 
-    //Use the variable to select an index inside of the array.
-    phraseList[i] = randomNumber;
+    let randomNumber = Math.floor(Math.random() * phraseList.length);
     
+    //Use the variable to select an index inside of the array.
+    //Function returns a randomly selected phrase from phraseList
+    return phraseList[randomNumber];
 
 };
