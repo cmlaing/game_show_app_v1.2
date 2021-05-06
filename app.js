@@ -86,15 +86,17 @@ store the matching letter inside of a variable, and return that letter.
 If a match wasn’t found, the function should return null.
 */
 
-let letters = document.querySelectorAll('.letter');
+const letters = document.querySelectorAll('.letter');
+
+
 
 function checkLetter(button){
 
-    let matched = 'null'; //no matches to start
+    let matched = null; //no matches to start
     
     for (i = 0; i < letters.length; i++) {
-        if (button === letters[i]) {
-            letters.classList.add("show");
+        if (button === letters[i].textContent.toLowerCase()) {
+            letters[i].classList.add("show");
             matched = true;
         }
     } 
@@ -119,14 +121,44 @@ qwerty.addEventListener('click', e => {
     if (e.target.tagName === 'BUTTON'){
         e.target.className = "chosen";
         e.target.disabled = true;
-        let letterFound = checkLetter();
-        if (letterFound === 'null') {
+
+        let letterFound = checkLetter(e.target.textContent.toLowerCase()); //buttons are lowercase
+        if (letterFound === null) {
             liveHeart[missed].src = 'images/lostHeart.png'; // change heart to a dud
             missed++;
 
         }
+        checkWin();
 
     }
 
 
 });
+
+
+/*
+checkWin function to check if the phrase has been correctly guessed.
+
+to check if the number of letters with class “show” is equal to the number of letters with class “letters”.
+If they’re equal, show the overlay screen with the “win” class and appropriate text.
+Otherwise, if the number of misses is equal to or greater than 5, show the overlay screen with the “lose” class and appropriate text.
+*/
+
+function checkWin() {
+    const show = document.querySelectorAll('.show');  
+    let endGameMessage = document.querySelector('.title');
+    if (letters.length === show.length) { //all clicks are defaulting to this?
+
+        // display win overlay
+        overlay.className = "win";
+        endGameMessage.textContent = "You Win!";
+        overlay.style.display = "flex";
+    } else if (missed > 4){
+        overlay.className = "lose";
+        endGameMessage.textContent = "You Lose!";
+        overlay.style.display = "flex";
+        //game over
+    }
+
+
+};
