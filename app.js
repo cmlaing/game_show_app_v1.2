@@ -66,11 +66,11 @@ function addPhraseToDisplay(chosenPhrase) {
         is a letter or a space, gives it a class of letter or space, then 
         attaches it to the list item in order for it to display.
         */
-        if (li == phraseChar ) {
-            li.classList.add("letter");
-            phraseUl.appendChild(li);
-        } else if (li !== phraseChar){ //not a letter, aka a space
+        if (!li.textContent == phraseChar.toUpperCase() ) {
             li.classList.add("space");
+            phraseUl.appendChild(li);
+        } else if (li.textContent == phraseChar.toUpperCase()){ //not a letter, aka a space
+            li.classList.add("letter");
             phraseUl.appendChild(li);
         }
     }
@@ -138,7 +138,6 @@ qwerty.addEventListener('click', e => {
 
 /*
 checkWin function to check if the phrase has been correctly guessed.
-
 to check if the number of letters with class “show” is equal to the number of letters with class “letters”.
 If they’re equal, show the overlay screen with the “win” class and appropriate text.
 Otherwise, if the number of misses is equal to or greater than 5, show the overlay screen with the “lose” class and appropriate text.
