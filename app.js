@@ -3,13 +3,14 @@ app.js is for Treehouse Unit 6 Project for the "Wheel of Success" game.
 May 6/21 start
 */
 
-
+//Variable List
 const overlay = document.querySelector("#overlay");
 const qwerty =  document.querySelector("#qwerty");
 const phrase = document.querySelector("#phrase");
 const btn_reset = document.querySelector(".btn__reset");
 let missed = 0;
 let phraseUl = document.querySelector("#phrase ul");
+let liveHeart = document.querySelectorAll(".tries img");
 
 
 // Phrase list, one per game to guess
@@ -61,19 +62,71 @@ function addPhraseToDisplay(chosenPhrase) {
         phraseChar = chosenPhrase[i];
         li.textContent = phraseChar.toUpperCase();
         
-        // actually displays on screen
+        /* The part that displays it on the screen. Checks if the phrase character
+        is a letter or a space, gives it a class of letter or space, then 
+        attaches it to the list item in order for it to display.
+        */
         if (li == phraseChar ) {
             li.classList.add("letter");
             phraseUl.appendChild(li);
-
-
-        } else if (li !== phraseChar){
+        } else if (li !== phraseChar){ //not a letter, aka a space
             li.classList.add("space");
             phraseUl.appendChild(li);
-
         }
     }
 
 };
 
 addPhraseToDisplay(chosenPhrase);
+
+/*
+Loop over the letters and check if they match the letter in the button the player has chosen.
+If there’s a match, the function should add the “show” class to the list item containing that letter, 
+store the matching letter inside of a variable, and return that letter.
+If a match wasn’t found, the function should return null.
+*/
+
+let letters = document.querySelectorAll('.letter');
+
+function checkLetter(button){
+
+    let matched = 'null'; //no matches to start
+    
+    for (i = 0; i < letters.length; i++) {
+        if (button === letters[i]) {
+            letters.classList.add("show");
+            matched = true;
+        }
+    } 
+
+    return matched;
+
+
+};
+
+/*
+Event listener for keyboard.
+A letter clicked on gets the "chosen" class and it is disabled so it cannot be selected again.
+The clicked letter gets passed to checkLetter() and the result is stored in a variable letterFound.
+If letterFound is not in the phrase, a heart life gets lost and the missed counter goes up.
+*/
+
+
+qwerty.addEventListener('click', e => {
+    
+
+    // when you click the button, the chosen class gets added so the tile gets dark and you can't click it again
+    if (e.target.tagName === 'BUTTON'){
+        e.target.className = "chosen";
+        e.target.disabled = true;
+        let letterFound = checkLetter();
+        if (letterFound === 'null') {
+            liveHeart[missed].src = 'images/lostHeart.png'; // change heart to a dud
+            missed++;
+
+        }
+
+    }
+
+
+});
