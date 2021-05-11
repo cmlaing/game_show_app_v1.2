@@ -93,8 +93,12 @@ button {
 }
 
 .show {
-  color: #000;
+  color: #ffffff;
   background-color: #76CE82;
+  font-size: 20px;
+  border-radius: 20%;
+  border: 3px solid #c4f1ca;
+  transition: all .5s;
 }
 
 /* Keyboard */

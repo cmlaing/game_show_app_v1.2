@@ -1,6 +1,6 @@
 /*
 app.js is for Treehouse Unit 6 Project for the "Wheel of Success" game.
-May 6/21 start
+6-8 hours total
 */
 
 //Variable List
@@ -11,18 +11,20 @@ const btn_reset = document.querySelector(".btn__reset");
 let missed = 0;
 let phraseUl = document.querySelector("#phrase ul");
 let liveHeart = document.querySelectorAll(".tries img");
+let chosen = document.querySelectorAll(".chosen");
 
 
 // Phrase list, one per game to guess
 const phraseList = [
-    "The sky is blue",
-    "One flew over the cuckoos nest",
+    "I am a cat",
+    "Hello friend",
     "It is always something",
-    "I think therefore I am",
-    "This project has been a success",
+    "I enjoy pizza",
+    "Photosynthesis is important",
     "A snail says hello",
     "I will believe it when I see it",
-    "Thank you for dinner"
+    "Thank you for dinner",
+    "Wow that was awesome"
 
 ];
 
@@ -30,7 +32,10 @@ btn_reset.addEventListener('click', () => {
     //hide the overlay when button is clicked
     if (btn_reset.textContent === 'Start Game') {
         overlay.style.display = "none";
-    } 
+    } else if (btn_reset.textContent === 'Play Again') {
+        location.reload(); // reset the game by refreshing the page
+    }
+        
 
 });
 
@@ -136,6 +141,7 @@ qwerty.addEventListener('click', e => {
 });
 
 
+
 /*
 checkWin function to check if the phrase has been correctly guessed.
 to check if the number of letters with class “show” is equal to the number of letters with class “letters”.
@@ -146,18 +152,27 @@ Otherwise, if the number of misses is equal to or greater than 5, show the overl
 function checkWin() {
     const show = document.querySelectorAll('.show');  
     let endGameMessage = document.querySelector('.title');
-    if (letters.length === show.length) { //all clicks are defaulting to this?
-
-        // display win overlay
+    if (letters.length === show.length) { // display win overlay
         overlay.className = "win";
         endGameMessage.textContent = "You Win!";
         overlay.style.display = "flex";
-    } else if (missed > 4){
+        btn_reset.textContent = "Play Again";
+        
+
+
+    } else if (missed > 4){ // display loser overlay, game over
         overlay.className = "lose";
         endGameMessage.textContent = "You Lose!";
         overlay.style.display = "flex";
-        //game over
+        btn_reset.textContent = "Play Again";
+        
+        
     }
 
 
 };
+
+
+
+
+
