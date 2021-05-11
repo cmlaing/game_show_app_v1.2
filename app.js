@@ -12,7 +12,7 @@ let phraseUl = document.querySelector("#phrase ul");
 let liveHeart = document.querySelectorAll(".tries img");
 let chosen = document.querySelectorAll(".chosen");
 let missed = 0; // lives are at full health!
-const scoreboard= document.querySelector("#scoreboard");
+
 
 
 /*
