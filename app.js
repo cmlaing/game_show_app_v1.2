@@ -3,18 +3,22 @@ app.js is for Treehouse Unit 6 Project for the "Wheel of Success" game.
 6-8 hours total
 */
 
-//Variable List
+// Variable List
 const overlay = document.querySelector("#overlay");
 const qwerty =  document.querySelector("#qwerty");
 const phrase = document.querySelector("#phrase");
 const btn_reset = document.querySelector(".btn__reset");
-let missed = 0;
 let phraseUl = document.querySelector("#phrase ul");
 let liveHeart = document.querySelectorAll(".tries img");
 let chosen = document.querySelectorAll(".chosen");
+let missed = 0; // lives are at full health!
+const scoreboard= document.querySelector("#scoreboard");
 
 
-// Phrase list, one per game to guess
+/*
+    An array of phrases. One phrase will be chosen from this list to act as the phrase
+    to guess in the game.
+*/
 const phraseList = [
     "I am a cat",
     "Hello friend",
@@ -28,6 +32,12 @@ const phraseList = [
 
 ];
 
+/*
+    Event listener for clicking on the "Start Game" and "Play Again" buttons.
+    "Start Game" hides overlay and "Play Again" refreshes the page.
+
+*/
+
 btn_reset.addEventListener('click', () => {
     //hide the overlay when button is clicked
     if (btn_reset.textContent === 'Start Game') {
@@ -40,6 +50,12 @@ btn_reset.addEventListener('click', () => {
 });
 
 
+
+/*
+    A function to select a random phrase from phraseList based on a random number.
+    The random number is generated based on the length of the phraseList array.
+    Returns an index value of phraseList based on the random number, which is a string for a given phrase.
+*/
 
 function getRandomPhraseAsArray(arr){
     // choose 1 random phrase to be the phrase for the game
@@ -56,9 +72,12 @@ function getRandomPhraseAsArray(arr){
 
 
 /*
-Use the randomly generated phrase from getRandomPhraseAsArray() and
-display it on the screen using addPhraseToDisplay()
+    addPhraseToDisplay() function
+
+    Use the randomly generated phrase from getRandomPhraseAsArray() and
+    display it on the screen using addPhraseToDisplay()
 */
+
 let chosenPhrase = getRandomPhraseAsArray(phraseList);
 function addPhraseToDisplay(chosenPhrase) {
     //attach each char in phrase as a list item
@@ -85,15 +104,14 @@ function addPhraseToDisplay(chosenPhrase) {
 addPhraseToDisplay(chosenPhrase);
 
 /*
-Loop over the letters and check if they match the letter in the button the player has chosen.
-If there’s a match, the function should add the “show” class to the list item containing that letter, 
-store the matching letter inside of a variable, and return that letter.
-If a match wasn’t found, the function should return null.
+    checkLetter() function
+    Loops over the letters and check if they match the letter in the button the player has chosen.
+    If there’s a match, the function adds the “show” class to the list item containing that letter, 
+    stores the matching letter inside of a variable, and returns that letter.
+    If a match wasn’t found, the function returns null.
 */
 
 const letters = document.querySelectorAll('.letter');
-
-
 
 function checkLetter(button){
 
@@ -112,10 +130,11 @@ function checkLetter(button){
 };
 
 /*
-Event listener for keyboard.
-A letter clicked on gets the "chosen" class and it is disabled so it cannot be selected again.
-The clicked letter gets passed to checkLetter() and the result is stored in a variable letterFound.
-If letterFound is not in the phrase, a heart life gets lost and the missed counter goes up.
+    Event listener for on screen keyboard.
+    A letter clicked on gets the "chosen" class and it is disabled so it cannot be selected again.
+    The clicked letter gets passed to checkLetter() and the result is stored in a variable letterFound.
+    If letterFound is not in the phrase, a heart life gets lost and the missed counter goes up.
+    After every letter is clicked, a checkWin() function is called to see if the player has won or lost the game.
 */
 
 
@@ -143,10 +162,10 @@ qwerty.addEventListener('click', e => {
 
 
 /*
-checkWin function to check if the phrase has been correctly guessed.
-to check if the number of letters with class “show” is equal to the number of letters with class “letters”.
-If they’re equal, show the overlay screen with the “win” class and appropriate text.
-Otherwise, if the number of misses is equal to or greater than 5, show the overlay screen with the “lose” class and appropriate text.
+    checkWin function to check if the phrase has been correctly guessed.
+    It checks if the number of letters with class “show” is equal to the number of letters with class “letters”.
+    If they’re equal, it shows the overlay screen with the “win” class and appropriate text.
+    Otherwise, if the number of misses is greater than 4, it shows the overlay screen with the “lose” class and appropriate text.
 */
 
 function checkWin() {
@@ -154,9 +173,14 @@ function checkWin() {
     let endGameMessage = document.querySelector('.title');
     if (letters.length === show.length) { // display win overlay
         overlay.className = "win";
-        endGameMessage.textContent = "You Win!";
+        endGameMessage.textContent = "You win kitten boots!";
         overlay.style.display = "flex";
         btn_reset.textContent = "Play Again";
+
+        var kitten = new Image();
+        kitten.src = 'images/kittens2.jpg';
+        document.getElementById("overlay").appendChild(kitten);
+        
         
 
 
@@ -171,6 +195,7 @@ function checkWin() {
 
 
 };
+
 
 
 
