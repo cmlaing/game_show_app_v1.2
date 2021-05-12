@@ -28,7 +28,8 @@ const phraseList = [
     "A snail says hello",
     "I will believe it when I see it",
     "Thank you for dinner",
-    "Wow that was awesome"
+    "Wow that was awesome",
+    "Claustrophobia is not a myth"
 
 ];
 
@@ -180,6 +181,7 @@ function checkWin() {
         var kitten = new Image();
         kitten.src = 'images/kittens2.jpg';
         document.getElementById("overlay").appendChild(kitten);
+   
         
         
 
